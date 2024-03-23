@@ -3,12 +3,16 @@ package controller;
 import dtos.request.*;
 import exceptions.*;
 import model.Entry;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import services.DiaryServicesImpl;
-
+@RestController
 public class DiaryController {
     private Entry entry = new Entry();
+    @Autowired
     private  DiaryServicesImpl diaryServicesImplement;
-    public String registerUser(RegisterRequest request){
+    @PostMapping("/register")
+    public String registerUser(@RequestBody RegisterRequest request){
         try{
             diaryServicesImplement.register(request);
             return "Registration was successful";
@@ -16,15 +20,17 @@ public class DiaryController {
             return"UserName exist";
         }
     }
-    public String login(LoginRequest loginRequest){
-
-        diaryServicesImplement.login(loginRequest);
-        return "Logged in successfully";
-
-
-
+    @PatchMapping("/login")
+    public String login(@RequestBody LoginRequest loginRequest) {
+        try {
+            diaryServicesImplement.login(loginRequest);
+            return "Logged in successfully";
+        }catch (IncorrectPasswordException e){
+            return e.getMessage();
+        }
     }
-    public String logout(String name){
+    @PatchMapping("/logout/{name}")
+    public String logout(@RequestBody String name){
         try{
             diaryServicesImplement.logout(name);
             return "Logged out successfully";
@@ -32,7 +38,8 @@ public class DiaryController {
             return (e.getMessage());
         }
     }
-    public String findEntry(String id, String username){
+    @GetMapping("getEntry/{entryId}")
+    public String findEntry(@PathVariable("entryId") String id,  @RequestParam(name = "username", defaultValue = "") String username){
         try{
             diaryServicesImplement.findEntry(id, username);
             return String.format(entry.toString());
@@ -40,7 +47,8 @@ public class DiaryController {
             return (e.getMessage());
         }
     }
-    public String deleteEntry(String id, String username){
+    @DeleteMapping("deleteEntry/{entryId}")
+    public String deleteEntry(@PathVariable("entryId") String id, @RequestParam(name = "username", defaultValue = "") String username){
         try{
             diaryServicesImplement.deleteEntry(id,username);
             return "Entry deleted successfully";
