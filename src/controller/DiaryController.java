@@ -6,6 +6,10 @@ import model.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import services.DiaryServicesImpl;
+
+import java.util.Collections;
+import java.util.List;
+
 @RestController
 public class DiaryController {
     private Entry entry = new Entry();
@@ -56,6 +60,7 @@ public class DiaryController {
             return (e.getMessage());
         }
     }
+    @DeleteMapping("deleteDiary/{entryId}")
     public String deleteDiary(DeleteUserRequest request){
         try{
             diaryServicesImplement.deleteDiary(request);
@@ -64,7 +69,8 @@ public class DiaryController {
             return (e.getMessage());
         }
     }
-    public String updateEntry(UpdateUserRequest request) {
+    @PatchMapping("updateEntry")
+    public String updateEntry(@RequestBody UpdateUserRequest request) {
         try {
             diaryServicesImplement.updateEntryWith(request);
             return "Entry Updated";
@@ -72,8 +78,17 @@ public class DiaryController {
             return (e.getMessage());
         }
     }
-    public String createEntry(CreateEntryRequest entryCreation){
+    @GetMapping("/getEntriesFor/{author}")
+    public List<?> getEntriesFor(@PathVariable("author") String username) {
+        try {
+            return Collections.singletonList(diaryServicesImplement.getEntriesFor(username));
+        } catch (DiaryAppException e) {
+            return List.of(e.getMessage());
+        }
+    }
+    @PostMapping("createEntry")
+    public List<String> createEntry(CreateEntryRequest entryCreation){
         diaryServicesImplement.createEntryWith( entryCreation);
-        return "Created successfully";
+        return Collections.singletonList("Created successfully");
     }
 }
