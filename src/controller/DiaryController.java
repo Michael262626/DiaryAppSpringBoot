@@ -12,7 +12,8 @@ import java.util.List;
 
 @RestController
 public class DiaryController {
-    private Entry entry = new Entry();
+    @Autowired
+    private Entry entry;
     @Autowired
     private  DiaryServicesImpl diaryServicesImplement;
     @PostMapping("/register")
