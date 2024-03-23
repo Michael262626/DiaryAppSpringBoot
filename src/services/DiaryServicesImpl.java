@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import repository.DiaryRepositories;
 import repository.EntryRepositories;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -121,8 +120,11 @@ public class DiaryServicesImpl implements DiaryServices{
     }
 
     @Override
-    public List<Entry> getEntriesFor(String username) {
-        return null;
+    public Optional<Entry> getEntriesFor(String username) {
+        Diary foundDiary = findDiaryBy(username.toLowerCase());
+        checkLockStatusOf(foundDiary);
+
+        return entryServicesImplement.getEntriesFor(username);
     }
     @Override
     public void createEntryWith(CreateEntryRequest entryCreation) {
