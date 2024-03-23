@@ -86,8 +86,6 @@ public class DiaryServicesImpl implements DiaryServices{
         diary.setLocked(true);
     }
 
-
-
     @Override
     public void updateEntryWith(UpdateUserRequest updateEntryRequest) {
         Diary foundDiary = findDiaryBy(updateEntryRequest.getAuthor().toLowerCase());
@@ -136,25 +134,22 @@ public class DiaryServicesImpl implements DiaryServices{
 
     @Override
     public void deleteDiary(DeleteUserRequest request) {
-        String username = request.getUsername()
+        String username = request.getUsername();
         String password = request.getPassword();
 
-        Diary diary = diaryRepositories.(username);
+        Diary diary = diaryRepositories.findByUsername(username);
         if (diary == null) {
             throw new DiaryNotFoundException("Diary not found for username: " + username);
         }
         if (!diary.getPassword().equals(password)) {
             throw new InvalidPasswordException("Invalid password for username: " + username);
         }
-        boolean deleted = diaryRepositories.delete(diary);
-        if (!deleted) {
-            throw new DiaryNotFoundException("Diary not found for username: " + username);
-        }
+         diaryRepositories.delete(diary);
     }
 
     public Entry findEntry(String id, String username) {
         for (Entry entry : entryRepositories.findAll() ){
-            if (entry.getId().equals(id)||entry.getAuthor().equals(username))) {
+            if (entry.getId().equals(id)||entry.getAuthor().equals(username)) {
                 return entry;
             }
         }
