@@ -3,9 +3,9 @@ package services;
 import dtos.request.*;
 import model.Diary;
 import model.Entry;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
+
 public interface DiaryServices {
     void register(RegisterRequest registerRequest);
     Diary findDiaryBy(String username);
@@ -15,7 +15,7 @@ public interface DiaryServices {
     void updateEntryWith(UpdateUserRequest updateEntryRequest);
     void deleteEntry(String id, String username);
     Entry getEntry(String id, String username);
-    List<Entry> getEntriesFor(String username);
+    Optional<Entry> getEntriesFor(String username);
     long count();
     long numberOfEntries();
     void deleteDiary(DeleteUserRequest request);
