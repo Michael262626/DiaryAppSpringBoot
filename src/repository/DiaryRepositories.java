@@ -8,4 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface DiaryRepositories extends MongoRepository<Diary, String> {
+    Diary findByUsername(String username);
 }
