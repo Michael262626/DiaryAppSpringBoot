@@ -1,4 +1,4 @@
-package dtos.request;
+package michaelDiary.exceptions.request;
 
 import lombok.Data;
 
