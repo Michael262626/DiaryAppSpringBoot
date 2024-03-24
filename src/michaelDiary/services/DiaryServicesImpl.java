@@ -24,7 +24,12 @@ public class DiaryServicesImpl implements DiaryServices{
     public void register(RegisterRequest request) {
         Diary newDiary = new Diary();
         if(isDiaryExisting(request.getUsername()))throw new UserNameExistException("User Name Existed Already");
-        newDiary.setUsername(request.getUsername().toLowerCase());
+        String username = request.getUsername();
+        if (username != null) {
+            newDiary.setUsername(username.toLowerCase());
+        } else {
+            throw new UserNotFoundException("Username cannot be null");
+        }
         newDiary.setPassword(request.getPassword());
         diaryRepositories.save(newDiary);
     }

@@ -21,6 +21,8 @@ public class DiaryController {
             return "Registration was successful";
         }catch (UserNameExistException e){
             return"UserName exist";
+        }catch (UserNotFoundException e){
+            return e.getMessage();
         }
     }
     @PatchMapping("/login")
