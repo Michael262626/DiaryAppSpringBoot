@@ -1,10 +1,8 @@
-package repository;
+package michaelDiary.exceptions.repository;
 
-import model.Diary;
+import michaelDiary.exceptions.model.Diary;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface DiaryRepositories extends MongoRepository<Diary, String> {
