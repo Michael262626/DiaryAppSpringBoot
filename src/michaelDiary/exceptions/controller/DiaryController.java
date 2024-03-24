@@ -1,11 +1,11 @@
-package controller;
+package michaelDiary.exceptions.controller;
 
-import dtos.request.*;
-import exceptions.*;
-import model.Entry;
+import michaelDiary.exceptions.exceptions.*;
+import michaelDiary.exceptions.request.*;
+import michaelDiary.exceptions.model.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import services.DiaryServicesImpl;
+import michaelDiary.exceptions.services.DiaryServicesImpl;
 
 import java.util.Collections;
 import java.util.List;
