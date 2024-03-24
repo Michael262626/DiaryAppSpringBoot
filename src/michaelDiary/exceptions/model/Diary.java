@@ -1,4 +1,4 @@
-package model;
+package michaelDiary.exceptions.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
