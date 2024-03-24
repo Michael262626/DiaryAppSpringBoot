@@ -1,7 +1,6 @@
-package dtos.request;
+package michaelDiary.exceptions.request;
 
 import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 public class UpdateUserRequest {
